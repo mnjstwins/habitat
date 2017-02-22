@@ -1,0 +1,25 @@
+syntax = "proto2";
+
+package launcher;
+
+message Envelope {
+  optional string message_id = 1;
+  optional bytes payload = 2;
+}
+
+///////////////////
+// Messages
+//
+
+message Ok {}
+
+message Register {
+  optional string pipe = 1;
+}
+
+message Spawn {
+  optional string binary = 1;
+  optional string svc_user = 2;
+  optional string svc_group = 3;
+  optional map<string, string> env = 4;
+}
