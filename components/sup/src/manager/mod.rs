@@ -785,9 +785,12 @@ impl Manager {
     }
 
     fn shutdown(&self) {
+        outputln!("Gracefully departing from butterfly network.");
+        self.butterfly.set_departed();
+
         let mut services = self.services
             .write()
-            .expect("Services lock is poisend!");
+            .expect("Services lock is poisoned!");
         for mut service in services.drain(..) {
             self.remove_service(&mut service);
         }

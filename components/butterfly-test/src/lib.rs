@@ -30,6 +30,7 @@ use time::SteadyTime;
 use habitat_butterfly::server::{Server, Suitability};
 use habitat_butterfly::member::{Member, Health};
 use habitat_butterfly::server::timing::Timing;
+use habitat_butterfly::rumor::departure::Departure;
 use habitat_butterfly::rumor::service::{Service, SysInfo};
 use habitat_butterfly::rumor::service_config::ServiceConfig;
 use habitat_butterfly::rumor::service_file::ServiceFile;
@@ -134,6 +135,12 @@ impl SwimNet {
         self.members[from_entry].insert_member(to, Health::Alive);
     }
 
+    pub fn add_member(&mut self) {
+        let number = self.members.len() + 1;
+        self.members
+            .push(start_server(&format!("{}", number), None, 0));
+    }
+
     // Fully mesh the network
     pub fn mesh(&mut self) {
         trace_it!(TEST_NET: self, "Mesh");
@@ -203,7 +210,7 @@ impl SwimNet {
     }
 
     pub fn max_rounds(&self) -> isize {
-        3
+        4
     }
 
     pub fn max_gossip_rounds(&self) -> isize {
@@ -477,6 +484,11 @@ impl SwimNet {
                                  filename,
                                  body_bytes);
         self[member].insert_service_file(s);
+    }
+
+    pub fn add_departure(&mut self, member: usize, rescinded: bool, incarnation: u64) {
+        let d = Departure::new(self[member].member_id(), rescinded, incarnation);
+        self[member].insert_departure(d);
     }
 
     pub fn add_election(&mut self, member: usize, service: &str) {

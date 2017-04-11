@@ -31,6 +31,21 @@ pub fn get() -> App<'static, 'static> {
             (@setting ArgRequiredElseHelp)
             (subcommand: sub_config_apply().aliases(&["a", "ap", "app", "appl"]))
         )
+        (@subcommand depart =>
+            (about: "Manage the departure status of a butterfly member")
+            (aliases: &["d", "de", "dep", "depa", "depart", "departure"])
+            (@setting ArgRequiredElseHelp)
+            (@arg MEMBER_ID: +required  "The member ID to depart")
+            (@arg INCARNATION: +required
+             "An incarnation number (positive integer) for this status (ex: 1)")
+            (@arg RESCIND: --rescind "Rescind this members departure; allow it to return")
+            (@arg PEER: -p --peer +takes_value
+             "A comma-delimited list of one or more Habitat Supervisor peers \
+                    (default: 127.0.0.1:9638)")
+            (@arg RING: -r --ring +takes_value
+             "Ring key name, which will encrypt communication messages")
+        )
+
         (@subcommand file =>
             (about: "Commands relating to Habitat files")
             (aliases: &["f", "fi", "fil"])
