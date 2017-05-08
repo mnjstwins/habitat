@@ -1,40 +1,56 @@
 ---
-title: Habitat - Demo - Ask the Supervisor What's Configurable
-description: The “Try Habitat” is an interactive, in-browser demo that walks you through how to build, configure, and run packages in Habitat.
+title: Habitat - Demo - Discover the Supervisor
+description: The “Try Habitat” is an interactive, in-browser demo that walks you through how to install, configure, and run packages in Habitat.
 step: 2
-total_steps: 7
+total_steps: 6
 ---
-h2.page-body--title Ask the Supervisor What's Configurable
+h2.page-body--title Join services together
 
 p
-  | In traditional packaging formats, the settings you can change are not typically
-    discoverable.
+  | Supervisors can manage their applications in isolation, but the real power of 
+    supervisors come when they are networked together. The way they do that is by 
+    connecting to each other via an IP address and forming a "ring" of two or more supervisors 
+    (although it is more like a peer-to-peer network rather than a circular ring).
+
+p 
+  | When supervisors are connected in this way, they start sharing information amongst themselves,
+    such as membership metadata and configuration settings. Having your applications automatically discover 
+    dependent services and configure themselves accordingly is useful if you have ever had to setup
+    connection information between tiers in a web application.
 
 p
-  | One powerful aspect of Habitat is that services are managed by a
-    <a href="/docs/concepts-supervisor/">Supervisor</a>. The Supervisor handles
-    many things including, as we'll see below, reporting on what is configurable
-    within our running service.
-
-p
-  | Better yet, presume you now have a hundred instances running in a group and you want to see
-    what can be configured. No problem, you can simply ask any single instance
-    and get back the same response.
-
-p
-  | From the beginning, Habitat was built with configuration in mind. Instead
-    of constantly destroying, re-building, and re-deploying packages for each
-    change, Habitat produces an immutable package artifact where the author defines
-    which configuration settings should be exposed. Give it a try.
+  | To set up databinding between the Ruby-on-Rails frontend and the PostgreSQL backend, you will restart
+    the rails app, but this time specifying the IP address of the supervisor managing the backend and 
+    setting the <code>bind</code> argument to the service group name of the database. 
 
 code
-  | hab sup config core/redis
+  | hab start example/ruby-rails-sample --peer 172.17.0.2 --bind database:postgresql.default
 
+p    
+  | What's a service group? Within a ring, services of the same type can form groups. This is useful 
+    when new configuration data and files must be shared with all members of a given type who are in 
+    a particular group. And to join the ring, you must specify the IP address of one other supervisor 
+    within the ring. 
+
+.window-buttons
+  ul
+    li
+      a.button.secondary.active data-target="window-node-1" Ruby-on-Rails 
+    li
+      a.button.secondary data-target="window-node-2" PostgreSQL
+
+#window-node-1.window-node
 = partial "partials/terminal" do
 
 #success
+  p
+    | The databinding has been set, but the frontend still cannot connect to the backend database. This is 
+      because our Ruby-on-Rails frontend application has a default configuration value that must be changed
+      before it is allowed to complete initialization.  
+
+      
   = partial "partials/advance_button" do
-    | Next - Make a configuration change
+      | Next - Dynamically configure your service
 
 = link_to "/try/", :class => "back-link" do
   | Back to previous step

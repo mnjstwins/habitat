@@ -1,15 +1,13 @@
-hab-sup(MN): Starting core/redis
-hab-sup(GS): Supervisor 172.17.0.4: 2e4cc8a8-d89e-4739-b14f-8ff526b99da5
-hab-sup(GS): Census redis.default: 32d54eaf-35e4-4052-8fc9-d16773251778
-hab-sup(GS): Starting inbound gossip listener
-hab-sup(GS): Starting outbound gossip distributor
-hab-sup(GS): Starting gossip failure detector
-hab-sup(CN): Starting census health adjuster
-hab-sup(SC): Updated redis.config
-hab-sup(TP): Restarting because the service config was updated via the census
-hab-sup(TL): 1 of 3 census entries; waiting for minimum quorum
+hab-sup(MR): Supervisor Member-ID 50f9bd9fd3b04857a0096532f7219e5f
+hab-sup(MR): Starting core/postgresql
+hab-sup(MR): Starting gossip-listener on 0.0.0.0:8638
+hab-sup(MR): Starting http-gateway on 0.0.0.0:8631
+postgresql.default(SR): Hooks recompiled
+postgresql.default(CF): Updated pg_ident.conf 0e5751c026e543b2e8ab2eb06099daa1d1e5df47778f7787faab45cdf12fe3a8
+postgresql.default(CF): Updated postgresql.conf 520f0b4f92b53312db6c512e577af98e2fe76c09d774eb81bfd62bb7fcc50b41
+postgresql.default(CF): Updated pg_hba.conf 262f519376471182971fc230c25775ee43c3507927be36a57813f62fd18e64e4
+postgresql.default(CF): Updated pwfile 5b4b01a4a3892ea3751793da57f072ae08eec694ddcda872239fc8239e4bcd1b
+postgresql.default(SR): Configuration recompiled
+postgresql.default(SR): Waiting to execute hooks; election in progress, and we have no quorum.
 
-[1;32mOur first node is up and running at 172.17.0.4.
-[1;33mNote the last line. The leader/follower topology requires a minimum of three nodes.
-
-[1;36mLet's spin up two more Redis instances and connect all three in a group by referencing that IP.
+Let's spin up two more PostgreSQL instances and connect all three in a group by referencing the IP address of the leader, which is 172.17.0.2.

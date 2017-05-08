@@ -1,34 +1,105 @@
 ---
 title: Habitat - Demo - Start a Service Using Habitat
-description: The “Try Habitat” is an interactive, in-browser demo that walks you through how to build, configure, and run packages in Habitat.
+description: The “Try Habitat” is an interactive, in-browser demo that walks you through how to install, configure, and run packages in Habitat.
 step: 1
 total_steps: 7
 ---
 p.page-body--tip
-  | Got 10 minutes? See what Habitat can do.
+  | Got 15 minutes? Learn about how Habitat can make managing and monitoring applications easier.
 
-h2.page-body--title Start a Service Using Habitat
-
-p
-  | This demo provides an introductory overview of Habitat
-    from the comfort of your browser. Below, we'll show you how to quickly
-    download and run existing packages to create services.
+h2.page-body--title Exploring the runtime features of Habitat
 
 p
-  | After starting a service, we'll demonstrate how easy Habitat makes it to inject configuration changes
-    into a single service and, lastly, how you can automatically cluster the infrastructure
-    and apply changes to any number of services regardless of where they are running
-    (in containers, VMs, or on bare metal).
+  | This demo showcases some of the runtime features and capabilities of Habitat
+    from the comfort of your browser. We'll explore capabilities such as built-in topology support, 
+    health monitoring, and dynamic configuration updates that make the runtime experience with Habitat 
+    great when running your own applications. 
+
+p 
+  | In our example, we are running a standard Ruby-on-Rails web application and
+    a PostgreSQL database in Habitat. Both the Ruby-on-Rails frontend and PostgreSQL backend 
+    have been packaged up as Habitat packages, so let's begin by starting up both packages 
+    and seeing what is happening behind the scenes.
 
 p
-  | Habitat centralizes application configuration, management, and behavior around
-    the application itself, not the infrastructure that the app runs on. To begin,
-    let's download and start a service from an existing Habitat package.
+  | In first window below, start up the frontend using the <code>hab start</code> command. This command 
+    first starts up a process manager called the <a href="/docs/concepts-supervisor/">supervisor</a> and 
+    then runs your application according to the behavior specified in your package. 
+
+p
+  | The start up procedure for the PostgreSQL package is similar, so in the second window, 
+    we have already started that package for you. 
+
 code
-  | hab start core/redis
+  | hab start example/ruby-rails-sample
 
-= partial "partials/terminal" do
+.window-buttons
+  ul
+    li
+      a.button.secondary.active data-target="window-node-1" Ruby-on-Rails 
+    li
+      a.button.secondary data-target="window-node-2" PostgreSQL
+
+
+#window-node-1.window-node
+  = partial "partials/terminal" do
+
+.shell-panel.window-node id="window-node-2" style="display:none;"
+  pre 
+    | user@workstation-machine:~$ hab start core/postgresql
+
+      hab-sup(MR): Butterfly Member ID 5eea050dcf5e41dd990c8552f4784c19
+      hab-sup(SR): Adding core/postgresql/9.6.1/20170424032128
+      hab-sup(MR): Starting butterfly on 0.0.0.0:9638
+      hab-sup(MR): Starting http-gateway on 0.0.0.0:9631
+      connecting to tcp://localhost:10001
+      connecting to tcp://localhost:10011
+      connecting to tcp://localhost:10021
+      hab-sup(SC): Updated postgresql.conf 520f0b4f92b53312db6c512e577af98e2fe76c09d774eb81bfd62bb7fcc50b41
+      hab-sup(SC): Updated pg_ident.conf 0e5751c026e543b2e8ab2eb06099daa1d1e5df47778f7787faab45cdf12fe3a8
+      hab-sup(SC): Updated pwfile 5b4b01a4a3892ea3751793da57f072ae08eec694ddcda872239fc8239e4bcd1b
+      hab-sup(SC): Updated pg_hba.conf 262f519376471182971fc230c25775ee43c3507927be36a57813f62fd18e64e4
+      postgresql.default(SR): Initializing
+      postgresql.default hook[init]:(HK):  Database does not exist, creating with 'initdb'
+      postgresql.default hook[init]:(HK): The files belonging to this database system will be owned by user "hab".
+      postgresql.default hook[init]:(HK): This user must also own the server process.
+      postgresql.default hook[init]:(HK): 
+      postgresql.default hook[init]:(HK): The database cluster will be initialized with locale "C".
+      postgresql.default hook[init]:(HK): The default text search configuration will be set to "english".
+      postgresql.default hook[init]:(HK): 
+      postgresql.default hook[init]:(HK): Data page checksums are disabled.
+      postgresql.default hook[init]:(HK): 
+      postgresql.default hook[init]:(HK): fixing permissions on existing directory /hab/svc/postgresql/data ... ok
+      postgresql.default hook[init]:(HK): creating subdirectories ... ok
+      postgresql.default hook[init]:(HK): selecting default max_connections ... 100
+      postgresql.default hook[init]:(HK): selecting default shared_buffers ... 128MB
+      postgresql.default hook[init]:(HK): selecting dynamic shared memory implementation ... posix
+      postgresql.default hook[init]:(HK): creating configuration files ... ok
+      postgresql.default hook[init]:(HK): running bootstrap script ... ok
+      postgresql.default hook[init]:(HK): performing post-bootstrap initialization ... ok
+      postgresql.default hook[init]:(HK): syncing data to disk ... ok
+      postgresql.default hook[init]:(HK): 
+      postgresql.default hook[init]:(HK): WARNING: enabling "trust" authentication for local connections
+      postgresql.default hook[init]:(HK): You can change this by editing pg_hba.conf or using the option -A, or
+      postgresql.default hook[init]:(HK): --auth-local and --auth-host, the next time you run initdb.
+      postgresql.default hook[init]:(HK): 
+      postgresql.default hook[init]:(HK): Success. You can now start the database server using:
+      postgresql.default hook[init]:(HK): 
+      postgresql.default hook[init]:(HK):     pg_ctl -D /hab/svc/postgresql/data -l logfile start
+      postgresql.default hook[init]:(HK): 
+      postgresql.default(SV): Starting process as user=hab, group=hab
+      postgresql.default(O): 2017-05-07 06:47:33 GMT LOG:  database system was shut down at 2017-05-07 06:47:33 GMT
+      postgresql.default(O): 2017-05-07 06:47:33 GMT LOG:  MultiXact member wraparound protections are now enabled
+      postgresql.default(O): 2017-05-07 06:47:33 GMT LOG:  database system is ready to accept connections
+      postgresql.default(O): 2017-05-07 06:47:33 GMT LOG:  autovacuum launcher started
+
 
 #success
+  p
+    | You can see in each output that the supervisor starts up first and then starts 
+      up any packaged applications or services. In the case of our Ruby-on-Rails application,
+      the supervisor recognizes that the application must bind to a database (specified in its plan),
+      before initialization can take place. We will address that problem in the next step.
+
   = partial "partials/advance_button" do
-    | Next - Ask the supervisor what's configurable
+      | Next - Join these services together

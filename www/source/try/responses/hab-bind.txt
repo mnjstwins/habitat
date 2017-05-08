@@ -1,1 +1,18 @@
-output for hab bind
+hab-sup(MR): Supervisor Member-ID 77050244e0fc40e8b3fb8c3d7abaaaab
+hab-sup(MR): Starting dwrede/ruby-rails-sample
+hab-sup(MR): Starting gossip-listener on 0.0.0.0:9638
+hab-sup(MR): Starting http-gateway on 0.0.0.0:9631
+ruby-rails-sample.default(SR): The specified service group 'postgresql.default' for binding 'database' is not (yet?) present in the census data.
+ruby-rails-sample.default(SR): Waiting for service binds...
+ruby-rails-sample.default(SR): Hooks recompiled
+ruby-rails-sample.default(CF): Updated app_env.sh b1a5a3a8620621c8d623fce9edc67259600b6d70e2903a5ddb1e7b692fe800cb
+ruby-rails-sample.default(SR): Configuration recompiled
+ruby-rails-sample.default(SR): Initializing
+ruby-rails-sample.default hook[init]:(HK): Required environment variable SECRET_KEY_BASE is not set.
+ruby-rails-sample.default hook[init]:(HK): Set this package's config setting 'secret_key_base' to a
+ruby-rails-sample.default hook[init]:(HK): non-empty value. You can run 'rails secret' in development
+ruby-rails-sample.default hook[init]:(HK): to generate a random key string.
+ruby-rails-sample.default hook[init]:(HK): 
+ruby-rails-sample.default hook[init]:(HK): Aborting...
+ruby-rails-sample.default(HK): Initialization failed! 'init' exited with status code 5
+

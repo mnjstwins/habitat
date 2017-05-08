@@ -1,35 +1,62 @@
 ---
-title: Habitat - Demo - Configure the Service Through Environment Variables
-description: The “Try Habitat” is an interactive, in-browser demo that walks you through how to build, configure, and run packages in Habitat.
+title: Habitat - Demo - Dynamically configure your service
+description: The “Try Habitat” is an interactive, in-browser demo that walks you through how to install, configure, and run packages in Habitat.
 step: 3
-total_steps: 7
+total_steps: 6
 ---
-h2.page-body--title Configure the Service Through Environment Variables
+h2.page-body--title Dynamically configure your service
 
 p
-  | In the first step, we started up the Redis service and, as you might have noticed, there was
-    a warning about the TCP backlog setting. Next, the supervisor informed us
-    that many settings&mdash;including the TCP backlog&mdash;are configurable.
+  | From the beginning, Habitat was built with configuration in mind. Instead
+    of constantly destroying, re-building, and re-deploying packages for each
+    change, Habitat produces an immutable package artifact where you define
+    which configuration settings should be exposed. 
 
 p
-  | With Habitat, there are a couple of ways to make config changes to your service.
-    In the next step, we'll walk you through passing a config file in to a running supervisor,
-    but first let's take the standard approach of passing the change in
-    as an environment variable.
+  | There are a couple of ways to make config changes to your service: through environment 
+    variables and through a configuration update process that sends updated values to any 
+    members within a given service group.
 
-p
-  | Suppose you wanted to test your change by starting a single instance. Start
-    the Redis service again, this time overriding the TCP backlog setting.
-    You'll notice that the warning goes away upon starting up the service.
+p 
+  | In the example below, a workstation machine is connected to the same network as the Ruby-on-Rails
+    and PostgreSQL services. Run the <code>hab config apply</code> subcommand to
+    push new database connection configuration changes out to the ruby-rails-sample.default service group
+    and allow the Rails app to connect to the database and begin serving out web pages.
 
 code
-  | HAB_REDIS="tcp-backlog=128" hab start core/redis
+  | hab config apply --peer 172.17.0.2 ruby-rails-sample.default 1 fix_db_conn.toml
 
-= partial "partials/terminal" do
+p 
+  | The Ruby-on-Rails window will show how its output changes in response to 
+    the configuration update.
+
+.window-buttons
+  ul
+    li
+      a.button.secondary.active data-target="window-node-1" Workstation 
+    li
+      a.button.secondary data-target="window-node-2" Ruby-on-Rails - <span class="node-status">running</span> <span class="button-badge">&nbsp;</span>
+
+#window-node-1.window-node
+  = partial "partials/terminal" do
+
+.shell-panel.window-node id="window-node-2" style="display:none;"
+  pre
+    | asdlfkjsdflkj
+  pre.full-output
+    | new output
+
 
 #success
+  p
+    | You have set up the data binding between the frontend and the backend,
+      and dynamically reconfigured your frontend, but in a real production deployment, 
+      you would probably want to connect your frontend application to a highly-available 
+      database cluster for resiliency. Habitat has built-in support for a leader-follower
+      topology to enable such a scenario. Find out how in the next step.
+
   = partial "partials/advance_button" do
-    | Next - Update the configuration file
+      | Next - Connect additional services
 
 = partial "partials/previous_button" do
   | Back to previous step
