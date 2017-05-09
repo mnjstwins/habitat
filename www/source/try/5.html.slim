@@ -7,7 +7,7 @@ total_steps: 6
 h2.page-body--title Adding Services to an Existing Group
 
 p
-  | Now that we've got our first node running, we went ahead and added a second running
+  | Now that you have your first node running, we went ahead and added a second running
     node for you since this topology requires a minimum of three. Once we add a third,
     we'll see them elect a leader for the group.
 
@@ -20,7 +20,7 @@ p
     node has been connected to one another.
 
 code
-  | hab start -t leader core/postgresql --peer 172.17.0.2
+  | hab start core/postgresql -t leader --peer 172.17.0.2
 
 .window-buttons
   ul

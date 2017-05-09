@@ -24,7 +24,7 @@ p
     and allow the Rails app to connect to the database and begin serving out web pages.
 
 code
-  | hab config apply --peer 172.17.0.2 ruby-rails-sample.default 1 fix_db_conn.toml
+  | hab config apply --peer 172.17.0.2 ruby-rails-sample.default 1 update_config.toml
 
 p 
   | The Ruby-on-Rails window will show how its output changes in response to 
@@ -56,7 +56,7 @@ p
       topology to enable such a scenario. Find out how in the next step.
 
   = partial "partials/advance_button" do
-      | Next - Connect additional services
+      | Next - Setting Up a Service Group Topology
 
 = partial "partials/previous_button" do
   | Back to previous step

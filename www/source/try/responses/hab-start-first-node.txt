@@ -10,4 +10,4 @@ postgresql.default(CF): Updated pwfile 5b4b01a4a3892ea3751793da57f072ae08eec694d
 postgresql.default(SR): Configuration recompiled
 postgresql.default(SR): Waiting to execute hooks; election in progress, and we have no quorum.
 
-Let's spin up two more PostgreSQL instances and connect all three in a group by referencing the IP address of the leader, which is 172.17.0.2.
+Let's spin up two more PostgreSQL instances and connect all three in a group!

@@ -7,16 +7,30 @@ total_steps: 6
 h2.page-body--title Checking the Health of your Service
 
 p
-  | 
+  | You can query all services currently loaded or running under the local supervisor using the 
+    <code>hab sup status</code> command. This command will list all persistent services loaded by the 
+    supervisor along with their current state. It will also list transient services that are currently 
+    running or in a starting or restarting state. 
+
+To retrieve status for an individual service, you can pass the service identifier:
+
+p
+  | When a service starts, the supervisor exposes the status of its services' health and 
+    other information through an HTTP API endpoint. This information can be useful in monitoring 
+    service health, results of leader elections, and so on. Connect to the supervisor of the running 
+    service using the following syntax. This example uses curl to do the GET request.
 
 code
-  | 
+  | hab sup status core/postgresql
+
+code 
+  | curl http://172.17.0.2:9631/services/postgresql/default/health
 
 = partial "partials/terminal" do
 
 #success
   = partial "partials/advance_button" do
-    | Next - Connect additional services
+    | Next - Review
 
 = partial "partials/previous_button" do
   | Back to previous step
