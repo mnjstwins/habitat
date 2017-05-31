@@ -28,28 +28,22 @@ p
     connect to the database.
 
 code
-  | hab start example/ruby-rails-sample --peer 172.17.0.2 --bind database:postgresql.default
+  | hab start example/myrubyapp --peer 172.17.0.2 --bind database:postgresql.default
 
 p    
   | What's a service group? Within a ring, services of the same type can form groups. This is useful 
     when new configuration data and files must be shared with all members of a given type who are in 
     a particular group. And to join the ring, you must specify the IP address of one other supervisor 
-    within the ring. 
-
-.window-buttons
-  ul
-    li
-      a.button.secondary.active data-target="window-node-1" Ruby-on-Rails 
-    li
-      a.button.secondary data-target="window-node-2" PostgreSQL
+    within the ring; however that peer does <b>not</b> have to be in the same service group. This is how you can 
+    have services of different types pass around their configuration values. 
 
 #window-node-1.window-node
-= partial "partials/terminal" do
+  = partial "partials/terminal" do
 
 #success
   p
     | The databinding has been set, but the frontend still cannot connect to the backend database. This is 
-      because our Ruby-on-Rails frontend application has a default configuration value that must be changed
+      because our Ruby-on-Rails frontend application has a configuration value that must be changed
       before it is allowed to complete initialization.  
 
       

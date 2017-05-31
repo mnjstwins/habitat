@@ -37,35 +37,24 @@ code
 .shell-panel.window-node id="window-node-1" style="display:none;"
   pre
     | # node is up and running as leader
-      hab-sup(MR): Supervisor Member-ID 831821749dd141d98b712856cfddecbb
+      hab-sup(MR): Supervisor Member-ID 361f7a786ea642b0af33bd10a44ce12a
       hab-sup(MR): Starting core/postgresql
-      hab-sup(MR): Starting gossip-listener on 0.0.0.0:8638
-      hab-sup(MR): Starting http-gateway on 0.0.0.0:8631
+      hab-sup(MR): Starting gossip-listener on 0.0.0.0:9638
+      hab-sup(MR): Starting http-gateway on 0.0.0.0:9631
       postgresql.default(SR): Hooks recompiled
-      postgresql.default(CF): Updated pwfile 5b4b01a4a3892ea3751793da57f072ae08eec694ddcda872239fc8239e4bcd1b
-      postgresql.default(CF): Updated pg_ident.conf 0e5751c026e543b2e8ab2eb06099daa1d1e5df47778f7787faab45cdf12fe3a8
-      postgresql.default(CF): Updated postgresql.conf 520f0b4f92b53312db6c512e577af98e2fe76c09d774eb81bfd62bb7fcc50b41
-      postgresql.default(CF): Updated pg_hba.conf 262f519376471182971fc230c25775ee43c3507927be36a57813f62fd18e64e4
+      default(CF): Updated pg_ident.conf 0e5751c026e543b2e8ab2eb06099daa1d1e5df47778f7787faab45cdf12fe3a8
+      default(CF): Updated postgresql.conf 520f0b4f92b53312db6c512e577af98e2fe76c09d774eb81bfd62bb7fcc50b41
+      default(CF): Updated pwfile 5b4b01a4a3892ea3751793da57f072ae08eec694ddcda872239fc8239e4bcd1b
+      default(CF): Updated pg_hba.conf 262f519376471182971fc230c25775ee43c3507927be36a57813f62fd18e64e4
       postgresql.default(SR): Configuration recompiled
       postgresql.default(SR): Waiting to execute hooks; election in progress, and we have no quorum.
 
   pre.full-output
-    | Writing complete output
-      hab-sup(MR): Supervisor Member-ID 831821749dd141d98b712856cfddecbb
-      hab-sup(MR): Starting core/postgresql
-      hab-sup(MR): Starting gossip-listener on 0.0.0.0:8638
-      hab-sup(MR): Starting http-gateway on 0.0.0.0:8631
-      postgresql.default(SR): Hooks recompiled
-      postgresql.default(CF): Updated pwfile 5b4b01a4a3892ea3751793da57f072ae08eec694ddcda872239fc8239e4bcd1b
-      postgresql.default(CF): Updated pg_ident.conf 0e5751c026e543b2e8ab2eb06099daa1d1e5df47778f7787faab45cdf12fe3a8
-      postgresql.default(CF): Updated postgresql.conf 520f0b4f92b53312db6c512e577af98e2fe76c09d774eb81bfd62bb7fcc50b41
-      postgresql.default(CF): Updated pg_hba.conf 262f519376471182971fc230c25775ee43c3507927be36a57813f62fd18e64e4
-      postgresql.default(SR): Configuration recompiled
-      postgresql.default(SR): Waiting to execute hooks; election in progress, and we have no quorum.
+    | postgresql.default(SR): Hooks recompiled
       postgresql.default(SR): Hooks recompiled
       postgresql.default(SR): Hooks recompiled
       postgresql.default(SR): Hooks recompiled
-      postgresql.default(SR): Executing hooks; 831821749dd141d98b712856cfddecbb is the leader
+      postgresql.default(SR): Executing hooks; 361f7a786ea642b0af33bd10a44ce12a is the leader
       postgresql.default(SR): Initializing
       postgresql.default hook[init]:(HK):  Database does not exist, creating with 'initdb'
       postgresql.default hook[init]:(HK): The files belonging to this database system will be owned by user "hab".
@@ -82,7 +71,6 @@ code
       postgresql.default hook[init]:(HK): selecting default shared_buffers ... 128MB
       postgresql.default hook[init]:(HK): selecting dynamic shared memory implementation ... posix
       postgresql.default hook[init]:(HK): creating configuration files ... ok
-      ERROR:habitat_butterfly::server::outbound: Discarding ack from 50f9bd9fd3b04857a0096532f7219e5f@172.17.0.2:8638; expected 71593c856b634d20987e4518f69dd1a0
       postgresql.default hook[init]:(HK): running bootstrap script ... ok
       postgresql.default hook[init]:(HK): performing post-bootstrap initialization ... ok
       postgresql.default hook[init]:(HK): syncing data to disk ... ok
@@ -96,41 +84,34 @@ code
       postgresql.default hook[init]:(HK):     pg_ctl -D /hab/svc/postgresql/data -l logfile start
       postgresql.default hook[init]:(HK): 
       postgresql.default(SV): Starting process as user=hab, group=hab
-      postgresql.default(O): 2017-05-08 13:05:19 GMT LOG:  database system was shut down at 2017-05-08 13:05:18 GMT
-      postgresql.default(O): 2017-05-08 13:05:19 GMT LOG:  MultiXact member wraparound protections are now enabled
-      postgresql.default(O): 2017-05-08 13:05:19 GMT LOG:  database system is ready to accept connections
-      postgresql.default(O): 2017-05-08 13:05:19 GMT LOG:  autovacuum launcher started
+      postgresql.default(O): 2017-05-21 07:29:50 GMT LOG:  database system was shut down at 2017-05-21 07:29:50 GMT
+      postgresql.default(O): 2017-05-21 07:29:50 GMT LOG:  MultiXact member wraparound protections are now enabled
+      postgresql.default(O): 2017-05-21 07:29:50 GMT LOG:  database system is ready to accept connections
+      postgresql.default(O): 2017-05-21 07:29:50 GMT LOG:  autovacuum launcher started
+
 
 .shell-panel.window-node id="window-node-2" style="display:none;"
   pre
     | # node is up and running as follower
-      hab-sup(MR): Supervisor Member-ID e45dc1c9dd6d45daa7038e5420ef580e
+      hab-sup(MR): Supervisor Member-ID 21d4f3a68396417fbb3071906b919efd
       hab-sup(MR): Starting core/postgresql
-      hab-sup(MR): Starting gossip-listener on 0.0.0.0:8638
-      hab-sup(MR): Starting http-gateway on 0.0.0.0:8631
+      hab-sup(MR): Starting gossip-listener on 0.0.0.0:9638
+      hab-sup(MR): Starting http-gateway on 0.0.0.0:9631
       postgresql.default(SR): Hooks recompiled
-      postgresql.default(CF): Updated postgresql.conf 520f0b4f92b53312db6c512e577af98e2fe76c09d774eb81bfd62bb7fcc50b41
-      postgresql.default(CF): Updated pg_hba.conf 262f519376471182971fc230c25775ee43c3507927be36a57813f62fd18e64e4
-      postgresql.default(CF): Updated pwfile 5b4b01a4a3892ea3751793da57f072ae08eec694ddcda872239fc8239e4bcd1b
-      postgresql.default(CF): Updated pg_ident.conf 0e5751c026e543b2e8ab2eb06099daa1d1e5df47778f7787faab45cdf12fe3a8
+      default(CF): Updated pg_hba.conf 262f519376471182971fc230c25775ee43c3507927be36a57813f62fd18e64e4
+      default(CF): Updated pg_ident.conf 0e5751c026e543b2e8ab2eb06099daa1d1e5df47778f7787faab45cdf12fe3a8
+      default(CF): Updated pwfile 5b4b01a4a3892ea3751793da57f072ae08eec694ddcda872239fc8239e4bcd1b
+      default(CF): Updated postgresql.conf 520f0b4f92b53312db6c512e577af98e2fe76c09d774eb81bfd62bb7fcc50b41
       postgresql.default(SR): Configuration recompiled
       postgresql.default(SR): Waiting to execute hooks; election in progress, and we have no quorum.
 
+
   pre.full-output
-    | Writing complete output
-      hab-sup(MR): Supervisor Member-ID e45dc1c9dd6d45daa7038e5420ef580e
-      hab-sup(MR): Starting core/postgresql
-      hab-sup(MR): Starting gossip-listener on 0.0.0.0:8638
-      hab-sup(MR): Starting http-gateway on 0.0.0.0:8631
+    | postgresql.default(SR): Hooks recompiled
       postgresql.default(SR): Hooks recompiled
-      postgresql.default(CF): Updated postgresql.conf 520f0b4f92b53312db6c512e577af98e2fe76c09d774eb81bfd62bb7fcc50b41
-      postgresql.default(CF): Updated pg_hba.conf 262f519376471182971fc230c25775ee43c3507927be36a57813f62fd18e64e4
-      postgresql.default(CF): Updated pwfile 5b4b01a4a3892ea3751793da57f072ae08eec694ddcda872239fc8239e4bcd1b
-      postgresql.default(CF): Updated pg_ident.conf 0e5751c026e543b2e8ab2eb06099daa1d1e5df47778f7787faab45cdf12fe3a8
-      postgresql.default(SR): Configuration recompiled
-      postgresql.default(SR): Waiting to execute hooks; election in progress, and we have no quorum.
       postgresql.default(SR): Hooks recompiled
-      postgresql.default(SR): Executing hooks; 831821749dd141d98b712856cfddecbb is the leader
+      postgresql.default(SR): Hooks recompiled
+      postgresql.default(SR): Executing hooks; 361f7a786ea642b0af33bd10a44ce12a is the leader
       postgresql.default(SR): Initializing
       postgresql.default hook[init]:(HK):  Database does not exist, creating with 'initdb'
       postgresql.default hook[init]:(HK): The files belonging to this database system will be owned by user "hab".
@@ -160,12 +141,10 @@ code
       postgresql.default hook[init]:(HK):     pg_ctl -D /hab/svc/postgresql/data -l logfile start
       postgresql.default hook[init]:(HK): 
       postgresql.default(SV): Starting process as user=hab, group=hab
-      postgresql.default(O): 2017-05-08 13:05:37 GMT LOG:  database system was shut down at 2017-05-08 13:05:37 GMT
-      postgresql.default(O): 2017-05-08 13:05:37 GMT FATAL:  the database system is starting up
-      postgresql.default(O): 2017-05-08 13:05:37 GMT LOG:  MultiXact member wraparound protections are now enabled
-      postgresql.default(O): 2017-05-08 13:05:37 GMT LOG:  database system is ready to accept connections
-      postgresql.default(O): 2017-05-08 13:05:37 GMT LOG:  autovacuum launcher started
-
+      postgresql.default(O): 2017-05-21 07:29:49 GMT LOG:  database system was shut down at 2017-05-21 07:29:49 GMT
+      postgresql.default(O): 2017-05-21 07:29:49 GMT LOG:  MultiXact member wraparound protections are now enabled
+      postgresql.default(O): 2017-05-21 07:29:49 GMT LOG:  database system is ready to accept connections
+      postgresql.default(O): 2017-05-21 07:29:49 GMT LOG:  autovacuum launcher started
 
 #success
   p 

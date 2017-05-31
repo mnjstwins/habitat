@@ -60,7 +60,7 @@ $("#mobile-keyboard-trigger").click(function() {
         "<span class='ansi-magenta'>/src</span>" +
         "<span class='ansi-green'>:</span>0<span class='ansi-green'>]$</span>";
     var initialPrompt = step === 0 ? rootPrompt : studioPrompt;
-
+    
     shell.setCommandHandler("exit", {
         exec: function(cmd, args, callback) {
             inStudio = false;
@@ -115,17 +115,22 @@ $("#mobile-keyboard-trigger").click(function() {
     shell.setCommandHandler("curl", {
          exec: function(cmd, args, callback) {
      
-            if (args.join(" ") === "http://172.17.0.2:9631/services/postgresql/default/health")
-            {
-               getExample("hab-health-check", callback);
+            if (args.join(" ") === "http://172.17.0.2:9631/services/postgresql/default/health") {
+               getExample("hab-health-check-postgres", callback);
 
                   if (step === 6) { success(); }
-                } else {
+                
+            } else if (args.join(" ") === "http://172.17.0.2:9631/services/myrubyapp/default/health"){
+               getExample("hab-health-check-ruby", callback);
+             
+                  if (step === 6) { success(); }
+
+            } else {
                   getResponse("hab-sup-config-help").then(function (txt) {
                       callback(format(txt));
                   });
-                }
             }
+            
     });
 
     // hab commands
@@ -135,13 +140,13 @@ $("#mobile-keyboard-trigger").click(function() {
           switch(args[0]) {
              case "start":
                    // Start a service
-                  if (args.join(" ") ===  "start example/ruby-rails-sample") { 
+                  if (args.join(" ") ===  "start example/myrubyapp") { 
 
                     getExample("hab-start-service", callback);
 
                     // step is pulled from the progress bar attribute in the DOM
                     if (step === 1) { success(); }
-                  } else if (args.join(" ") ===  "start example/ruby-rails-sample --peer 172.17.0.2 --bind database:postgresql.default") {
+                  } else if (args.join(" ") ===  "start example/myrubyapp --peer 172.17.0.2 --bind database:postgresql.default") {
 
                       getExample("hab-bind", callback);
                         
@@ -170,7 +175,7 @@ $("#mobile-keyboard-trigger").click(function() {
              case "config":
                 // Apply service group configuration
                 // inject the config.toml into the group
-                if (args.join(" ") === "config apply --peer 172.17.0.2 ruby-rails-sample.default 1 update_config.toml") {
+                if (args.join(" ") === "config apply --peer 172.17.0.2 myrubyapp.default 1 update_config.toml") {
                  
                       getExample("hab-config-apply", callback);
 
@@ -193,9 +198,15 @@ $("#mobile-keyboard-trigger").click(function() {
                 // Find out the status of the service from the supervisor
                 if (args.join(" ") === "sup status core/postgresql") {
                   
-                  getExample("hab-monitor", callback);
+                  getExample("hab-monitor-postgres", callback);
 
                   if (step === 6) { success(); }
+                } else if(args.join(" ") === "sup status example/myrubyapp") {
+                  
+                  getExample("hab-monitor-myrubyapp", callback);
+
+                  if (step === 6) { success(); }
+
                 } else {
                   getResponse("hab-sup-config-help").then(function (txt) {
                       callback(format(txt));
@@ -216,22 +227,6 @@ $("#mobile-keyboard-trigger").click(function() {
     shell.setPrompt(rootPrompt);
     shell.activate();
 
-    // Text Editor steps via CodeMirror
-    if (editorEl) {
-        editor = CodeMirror.fromTextArea(editorEl, {
-            mode: "shell",
-            lineNumbers: true,
-            matchBrackets: true,
-        });
-
-        editor.on("changes", function (instance, changes) {
-            if (step === 4 &&
-                instance.getValue().match(/tcp-backlog\s\=\s*128\s*/)) {
-                success();
-            }
-        });
-    }
-
     // Switching windows when adding services
     $(".window-buttons .button").click(function(event) {
         var targetID = $(this).attr("data-target");
@@ -247,7 +242,7 @@ $("#mobile-keyboard-trigger").click(function() {
 
     // Hack to allow pasting.
     // See https://github.com/sdether/josh.js/issues/28
-    $("#shell-panel").pastableNonInputable();
+    //$("#shell-panel").pastableNonInputable();
     $("#shell-panel").on("pasteText", function (event, data) {
         shell.addText(data.text);
     });

@@ -30,8 +30,12 @@ p
   | The start up procedure for the PostgreSQL package is similar, so in the second window, 
     we have already started that package for you. 
 
+p
+  | Tip: If you mess up entering a command, hit the Up arrow on your keyboard to re-enter your command 
+    in the terminal window. Then you can fix your error without having to type the whole command over again.
+
 code
-  | hab start example/ruby-rails-sample
+  | hab start example/myrubyapp
 
 .window-buttons
   ul
@@ -88,10 +92,11 @@ code
       postgresql.default hook[init]:(HK):     pg_ctl -D /hab/svc/postgresql/data -l logfile start
       postgresql.default hook[init]:(HK): 
       postgresql.default(SV): Starting process as user=hab, group=hab
-      postgresql.default(O): 2017-05-07 06:47:33 GMT LOG:  database system was shut down at 2017-05-07 06:47:33 GMT
-      postgresql.default(O): 2017-05-07 06:47:33 GMT LOG:  MultiXact member wraparound protections are now enabled
-      postgresql.default(O): 2017-05-07 06:47:33 GMT LOG:  database system is ready to accept connections
-      postgresql.default(O): 2017-05-07 06:47:33 GMT LOG:  autovacuum launcher started
+      postgresql.default(O): 2017-05-21 05:36:44 GMT FATAL:  the database system is starting up
+      postgresql.default(O): 2017-05-21 05:36:44 GMT LOG:  database system was shut down at 2017-05-21 05:36:43 GMT
+      postgresql.default(O): 2017-05-21 05:36:44 GMT LOG:  MultiXact member wraparound protections are now enabled
+      postgresql.default(O): 2017-05-21 05:36:44 GMT LOG:  database system is ready to accept connections
+      postgresql.default(O): 2017-05-21 05:36:44 GMT LOG:  autovacuum launcher started
 
 
 #success

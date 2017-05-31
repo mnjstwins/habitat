@@ -1,1 +1,0 @@
-hab-sup(MN): The core/postgresql/9.6.1/20170424032128 service entered the running state with PID: 19253 75 seconds ago.
